@@ -1,0 +1,8 @@
+#!/bin/bash
+echo "Starting Lab Reader v3..."
+echo ""
+echo "Installing dependencies..."
+pip install -r requirements.txt
+echo ""
+echo "Starting Streamlit app..."
+python -m streamlit run app_v3.py
