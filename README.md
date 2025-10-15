@@ -40,10 +40,26 @@ streamlit run app_v3.py
 2. **Tekst mod**: Zalijepi tekst nalaza direktno
 3. **Folder mod**: Unesi putanju foldera sa PDF-ovima i slikama
 
-## 🔧 OCR biblioteke
+## 🔧 OCR Setup
 
-Za OCR funkcionalnost su potrebne dodatne biblioteke:
+Za OCR funkcionalnost (slike i skenirani PDF-ovi), potrebno je instalirati Tesseract OCR:
 
+### Windows:
+1. **Preuzmi Tesseract**: https://github.com/tesseract-ocr/tesseract/releases
+2. **Instaliraj** sa default opcijama
+3. **Restartuj** aplikaciju
+
+### Alternativno (Chocolatey):
+```bash
+choco install tesseract
+```
+
+### Alternativno (Scoop):
+```bash
+scoop install tesseract
+```
+
+### Python biblioteke:
 ```bash
 pip install pytesseract pillow pymupdf
 ```

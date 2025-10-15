@@ -58,6 +58,47 @@ def extract_text_from_image(file_bytes: bytes) -> str:
     try:
         from PIL import Image
         import pytesseract
+        import os
+        
+        # Try to find Tesseract executable
+        tesseract_paths = [
+            r'C:\Program Files\Tesseract-OCR\tesseract.exe',
+            r'C:\Program Files (x86)\Tesseract-OCR\tesseract.exe',
+            r'C:\Users\{}\AppData\Local\Tesseract-OCR\tesseract.exe'.format(os.getenv('USERNAME', '')),
+            'tesseract'  # If in PATH
+        ]
+        
+        tesseract_found = False
+        for path in tesseract_paths:
+            if os.path.exists(path) or path == 'tesseract':
+                try:
+                    pytesseract.pytesseract.tesseract_cmd = path
+                    pytesseract.get_tesseract_version()
+                    tesseract_found = True
+                    break
+                except:
+                    continue
+        
+        if not tesseract_found:
+            st.error("""
+            **Tesseract OCR nije instaliran!**
+            
+            **Instaliraj Tesseract OCR:**
+            1. Idi na: https://github.com/tesseract-ocr/tesseract/releases
+            2. Preuzmi najnoviju verziju za Windows
+            3. Instaliraj sa default opcijama
+            4. Restartuj aplikaciju
+            
+            **Alternativno:**
+            ```bash
+            # Preko Chocolatey
+            choco install tesseract
+            
+            # Preko Scoop
+            scoop install tesseract
+            ```
+            """)
+            return ""
         
         # Open image
         image = Image.open(io.BytesIO(file_bytes))
@@ -82,6 +123,38 @@ def extract_text_from_pdf_with_ocr(file_bytes: bytes) -> str:
         import fitz  # PyMuPDF
         from PIL import Image
         import pytesseract
+        import os
+        
+        # Try to find Tesseract executable
+        tesseract_paths = [
+            r'C:\Program Files\Tesseract-OCR\tesseract.exe',
+            r'C:\Program Files (x86)\Tesseract-OCR\tesseract.exe',
+            r'C:\Users\{}\AppData\Local\Tesseract-OCR\tesseract.exe'.format(os.getenv('USERNAME', '')),
+            'tesseract'  # If in PATH
+        ]
+        
+        tesseract_found = False
+        for path in tesseract_paths:
+            if os.path.exists(path) or path == 'tesseract':
+                try:
+                    pytesseract.pytesseract.tesseract_cmd = path
+                    pytesseract.get_tesseract_version()
+                    tesseract_found = True
+                    break
+                except:
+                    continue
+        
+        if not tesseract_found:
+            st.error("""
+            **Tesseract OCR nije instaliran!**
+            
+            **Instaliraj Tesseract OCR:**
+            1. Idi na: https://github.com/tesseract-ocr/tesseract/releases
+            2. Preuzmi najnoviju verziju za Windows
+            3. Instaliraj sa default opcijama
+            4. Restartuj aplikaciju
+            """)
+            return ""
         
         doc = fitz.open(stream=file_bytes, filetype="pdf")
         text = ""
